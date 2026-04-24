@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villa Nereide · Cinisi, Sicilia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream:#F7F2E8; --warm:#EDE3CC; --gold:#8B6914; --gold-lt:#C4A44A;
+    --terra:#B85C38; --brown:#3D2B1A; --mid:#6B4E2E; --muted:#9C7E5A;
+    --olive:#5C6B2E; --sea:#2E5C6B;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'Lato',sans-serif; background:var(--cream); color:var(--brown); font-weight:300; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image: repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,105,20,.015) 3px,rgba(139,105,20,.015) 4px), repeating-linear-gradient(90deg,transparent,transparent 3px,rgba(139,105,20,.015) 3px,rgba(139,105,20,.015) 4px); }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:rgba(247,242,232,.92); backdrop-filter:blur(8px); border-bottom:.5px solid rgba(139,105,20,.2); }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:20px; font-style:italic; color:var(--brown); letter-spacing:.02em; }
+  .nav-logo span { color:var(--gold); }
+  .nav-links { display:flex; gap:28px; }
+  .nav-links a { font-size:11px; font-weight:400; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); text-decoration:none; transition:color .2s; }
+  .nav-links a:hover { color:var(--gold); }
+  .nav-lang { display:flex; gap:6px; }
+  .lang-btn { background:none; border:.5px solid var(--muted); color:var(--muted); padding:3px 9px; cursor:pointer; font-size:10px; letter-spacing:.1em; transition:all .2s; font-family:'Lato',sans-serif; }
+  .lang-btn.active,.lang-btn:hover { background:var(--gold); border-color:var(--gold); color:white; }
+  #hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; background:var(--brown); padding:100px 40px 60px; }
+  #hero::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; border:1px solid rgba(196,164,74,.15); top:50%; left:50%; transform:translate(-50%,-50%); }
+  #hero::after { content:''; position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(196,164,74,.1); top:50%; left:50%; transform:translate(-50%,-50%); }
+  .hero-tag { font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:24px; animation:fadeUp .8s ease both; }
+  .hero-title { font-family:'Playfair Display',serif; font-size:clamp(52px,8vw,88px); font-weight:400; color:var(--cream); text-align:center; line-height:1.05; animation:fadeUp .8s .15s ease both; }
+  .hero-title em { color:var(--gold-lt); font-style:italic; }
+  .hero-sub { font-family:'Playfair Display',serif; font-size:clamp(14px,2vw,18px); font-style:italic; color:var(--muted); text-align:center; margin-top:16px; animation:fadeUp .8s .3s ease both; }
+  .hero-location { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-lt); margin-top:32px; text-align:center; animation:fadeUp .8s .45s ease both; }
+  .hero-cta { margin-top:44px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; animation:fadeUp .8s .6s ease both; }
+  .btn-primary { background:var(--gold); color:white; border:none; padding:13px 32px; font-family:'Lato',sans-serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:all .25s; text-decoration:none; display:inline-block; }
+  .btn-primary:hover { background:var(--gold-lt); transform:translateY(-1px); }
+  .btn-outline { background:transparent; color:var(--cream); border:.5px solid rgba(247,242,232,.4); padding:13px 32px; font-family:'Lato',sans-serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:all .25s; text-decoration:none; display:inline-block; }
+  .btn-outline:hover { border-color:var(--gold-lt); color:var(--gold-lt); }
+  .hero-scroll { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeUp .8s .9s ease both; }
+  .hero-scroll span { font-size:9px; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold-lt),transparent); animation:scrollPulse 1.8s ease-in-out infinite; }
+  section { position:relative; z-index:1; }
+  .section-inner { max-width:1100px; margin:0 auto; padding:0 40px; }
+  .section-tag { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:block; }
+  .section-title { font-family:'Playfair Display',serif; font-size:clamp(32px,4vw,48px); font-weight:400; color:var(--brown); line-height:1.15; }
+  .section-title em { color:var(--terra); font-style:italic; }
+  #intro { padding:100px 0; background:var(--cream); }
+  .intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; margin-top:60px; }
+  .intro-text p { font-size:15px; line-height:1.85; color:var(--mid); margin-bottom:20px; }
+  .intro-card { background:var(--brown); padding:48px 40px; position:relative; }
+  .intro-card::before { content:''; position:absolute; inset:-8px; border:.5px solid rgba(139,105,20,.3); pointer-events:none; }
+  .intro-card-title { font-family:'Playfair Display',serif; font-size:13px; font-style:italic; color:var(--gold-lt); letter-spacing:.08em; margin-bottom:20px; }
+  .intro-stat { margin-bottom:20px; border-bottom:.5px solid rgba(196,164,74,.2); padding-bottom:20px; }
+  .intro-stat:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .intro-stat-num { font-family:'Playfair Display',serif; font-size:32px; color:var(--gold-lt); line-height:1; }
+  .intro-stat-label { font-size:11px; color:var(--muted); letter-spacing:.08em; margin-top:4px; }
+  #services { padding:100px 0; background:var(--warm); }
+  .services-header { margin-bottom:60px; }
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+  .service-card { background:var(--cream); padding:40px 32px; position:relative; overflow:hidden; cursor:pointer; transition:background .3s; border-top:3px solid transparent; }
+  .service-card:hover { background:white; }
+  .service-card.featured { background:var(--brown); border-top-color:var(--gold); }
+  .service-card.featured:hover { background:#4a3520; }
+  .service-num { font-family:'Playfair Display',serif; font-size:11px; color:var(--gold); letter-spacing:.1em; margin-bottom:20px; display:block; }
+  .service-icon { font-size:28px; margin-bottom:16px; display:block; }
+  .service-name { font-family:'Playfair Display',serif; font-size:20px; font-weight:400; color:var(--brown); margin-bottom:6px; line-height:1.2; }
+  .featured .service-name { color:var(--cream); }
+  .service-name-en { font-size:11px; color:var(--muted); letter-spacing:.06em; margin-bottom:16px; display:block; }
+  .featured .service-name-en { color:rgba(247,242,232,.5); }
+  .service-desc { font-size:13px; line-height:1.75; color:var(--mid); }
+  .featured .service-desc { color:var(--muted); }
+  .service-link { display:inline-flex; align-items:center; gap:8px; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-top:24px; text-decoration:none; transition:gap .2s; }
+  .service-link:hover { gap:14px; }
+  .featured .service-link { color:var(--gold-lt); }
+  .service-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transition:transform .3s; transform-origin:left; }
+  .service-card:hover::after,.service-card.featured::after { transform:scaleX(1); }
+  #dinner { padding:100px 0; background:var(--cream); }
+  .dinner-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; margin-top:60px; }
+  .dinner-menu-title { font-family:'Playfair Display',serif; font-size:13px; font-style:italic; color:var(--gold); letter-spacing:.08em; margin-bottom:24px; }
+  .menu-course { display:flex; gap:16px; padding:14px 0; border-bottom:.5px solid rgba(139,105,20,.15); align-items:start; }
+  .menu-course:last-child { border-bottom:none; }
+  .course-n { font-family:'Playfair Display',serif; font-size:11px; color:var(--gold-lt); min-width:20px; padding-top:2px; }
+  .course-info { flex:1; }
+  .course-name-it { font-size:14px; font-weight:400; color:var(--brown); margin-bottom:2px; }
+  .course-name-en { font-size:11px; color:var(--muted); font-style:italic; }
+  .info-block { background:var(--warm); padding:28px; margin-bottom:16px; border-left:2px solid var(--gold); }
+  .info-block-title { font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .info-block-text { font-size:13px; line-height:1.7; color:var(--mid); }
+  .info-block-text strong { color:var(--brown); font-weight:400; }
+  #wines { padding:100px 0; background:var(--brown); }
+  #wines .section-tag { color:var(--gold-lt); }
+  #wines .section-title { color:var(--cream); }
+  .wines-intro { font-size:15px; line-height:1.8; color:var(--muted); margin-top:24px; max-width:560px; }
+  .wines-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2px; margin-top:60px; }
+  .wine-card { background:rgba(255,255,255,.04); border:.5px solid rgba(196,164,74,.2); padding:32px 28px; transition:background .3s; }
+  .wine-card:hover { background:rgba(255,255,255,.08); }
+  .wine-type { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-lt); margin-bottom:12px; display:block; }
+  .wine-name { font-family:'Playfair Display',serif; font-size:18px; color:var(--cream); margin-bottom:4px; }
+  .wine-producer { font-size:11px; color:var(--muted); margin-bottom:14px; }
+  .wine-desc { font-size:12px; line-height:1.7; color:rgba(156,126,90,.9); }
+  #contact { padding:100px 0; background:var(--warm); }
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:60px; }
+  .contact-info p { font-size:14px; line-height:1.85; color:var(--mid); margin-bottom:32px; }
+  .contact-detail { display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
+  .contact-detail-item { display:flex; gap:12px; align-items:baseline; }
+  .contact-detail-label { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); min-width:80px; }
+  .contact-detail-value { font-size:13px; color:var(--mid); }
+  .form-group { margin-bottom:20px; }
+  .form-group label { display:block; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .form-group input,.form-group select,.form-group textarea { width:100%; background:var(--cream); border:.5px solid rgba(139,105,20,.3); padding:12px 16px; font-family:'Lato',sans-serif; font-size:13px; color:var(--brown); font-weight:300; outline:none; transition:border-color .2s; appearance:none; }
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--gold); }
+  .form-group textarea { resize:vertical; min-height:100px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  footer { background:var(--brown); padding:48px 40px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; border-top:.5px solid rgba(196,164,74,.2); }
+  .footer-logo { font-family:'Playfair Display',serif; font-size:18px; font-style:italic; color:var(--cream); }
+  .footer-logo span { color:var(--gold-lt); }
+  .footer-text { font-size:11px; color:var(--muted); text-align:center; }
+  .footer-links { display:flex; gap:24px; }
+  .footer-links a { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+  .footer-links a:hover { color:var(--gold-lt); }
+  .ornament { display:flex; align-items:center; gap:16px; margin-bottom:32px; }
+  .ornament-line { flex:0 0 40px; height:.5px; background:var(--gold); }
+  .ornament-text { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scrollPulse { 0%,100%{opacity:.3;transform:scaleY(.8)} 50%{opacity:1;transform:scaleY(1)} }
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  [data-en] { display:none; }
+  body.en [data-it] { display:none; }
+  body.en [data-en] { display:revert; }
+  @media(max-width:768px){
+    nav{padding:14px 20px} .nav-links{display:none} .section-inner{padding:0 20px}
+    .intro-grid,.dinner-grid,.contact-grid{grid-template-columns:1fr;gap:40px}
+    .services-grid{grid-template-columns:1fr} footer{flex-direction:column;text-align:center} #hero{padding:80px 20px 60px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Villa <span>Nereide</span></div>
+  <div class="nav-links">
+    <a href="#intro" data-it>La Villa</a><a href="#intro" data-en>The Villa</a>
+    <a href="#services" data-it>Esperienze</a><a href="#services" data-en>Experiences</a>
+    <a href="#dinner" data-it>Cena Privata</a><a href="#dinner" data-en>Private Dinner</a>
+    <a href="#wines" data-it>Vini</a><a href="#wines" data-en>Wines</a>
+    <a href="#contact" data-it>Contatti</a><a href="#contact" data-en>Contact</a>
+  </div>
+  <div class="nav-lang">
+    <button class="lang-btn active" onclick="setLang('it')">IT</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<section id="hero">
+  <p class="hero-tag" data-it>Cinisi · Sicilia · Mare e Terra</p>
+  <p class="hero-tag" data-en>Cinisi · Sicily · Sea &amp; Land</p>
+  <h1 class="hero-title">Villa <em>Nereide</em></h1>
+  <p class="hero-sub" data-it>Un luogo dove il cibo racconta la Sicilia</p>
+  <p class="hero-sub" data-en>A place where food tells the story of Sicily</p>
+  <p class="hero-location">Cinisi · Palermo · Sicilia</p>
+  <div class="hero-cta">
+    <a href="#services" class="btn-primary" data-it>Scopri le Esperienze</a>
+    <a href="#services" class="btn-primary" data-en>Explore Experiences</a>
+    <a href="#contact" class="btn-outline" data-it>Prenota</a>
+    <a href="#contact" class="btn-outline" data-en>Book Now</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<section id="intro">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag" data-it>La nostra storia</span>
+      <span class="section-tag" data-en>Our story</span>
+      <h2 class="section-title" data-it>Una villa privata<br>nel cuore della <em>Sicilia</em></h2>
+      <h2 class="section-title" data-en>A private villa<br>in the heart of <em>Sicily</em></h2>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-text reveal">
+        <p data-it>Villa Nereide sorge tra gli agrumeti e i vigneti di Cinisi, a pochi minuti dal mare del Golfo di Castellammare e dalle cantine di Camporeale. Una proprietà privata con cucina esterna, piscina e giardino mediterraneo — il palcoscenico perfetto per esperienze gastronomiche indimenticabili.</p>
+        <p data-it>Ogni esperienza è progettata intorno alla stagione, al territorio e agli ospiti. Dalla cena privata in riva alla piscina al corso di cucina tra le erbe del giardino — tutto nasce dalla stessa filosofia: il meglio della Sicilia, condiviso.</p>
+        <p data-en>Villa Nereide sits among the citrus groves and vineyards of Cinisi, minutes from the Tyrrhenian coast and the wineries of Camporeale. A private property with outdoor kitchen, pool and Mediterranean garden — the perfect stage for unforgettable gastronomic experiences.</p>
+        <p data-en>Every experience is designed around the season, the territory and the guests. From a private poolside dinner to a garden cooking class — everything flows from the same philosophy: the best of Sicily, shared.</p>
+      </div>
+      <div class="intro-visual reveal">
+        <div class="intro-card">
+          <p class="intro-card-title" data-it>Villa Nereide in cifre</p>
+          <p class="intro-card-title" data-en>Villa Nereide in numbers</p>
+          <div class="intro-stat"><div class="intro-stat-num">6</div><div class="intro-stat-label" data-it>Esperienze disponibili</div><div class="intro-stat-label" data-en>Available experiences</div></div>
+          <div class="intro-stat"><div class="intro-stat-num">8–10</div><div class="intro-stat-label" data-it>Ospiti per cena privata</div><div class="intro-stat-label" data-en>Guests per private dinner</div></div>
+          <div class="intro-stat"><div class="intro-stat-num">100%</div><div class="intro-stat-label" data-it>Prodotti locali e stagionali</div><div class="intro-stat-label" data-en>Local &amp; seasonal produce</div></div>
+          <div class="intro-stat"><div class="intro-stat-num">5km</div><div class="intro-stat-label" data-it>Dalla cantina Alessandro di Camporeale</div><div class="intro-stat-label" data-en>From Alessandro di Camporeale winery</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <span class="section-tag" data-it>Le nostre esperienze</span>
+      <span class="section-tag" data-en>Our experiences</span>
+      <h2 class="section-title" data-it>Sei modi di vivere<br>la <em>Villa Nereide</em></h2>
+      <h2 class="section-title" data-en>Six ways to experience<br><em>Villa Nereide</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card featured reveal">
+        <span class="service-num">01</span><span class="service-icon">🕯️</span>
+        <h3 class="service-name" data-it>Cena Privata</h3><h3 class="service-name" data-en>Private Dinner</h3>
+        <span class="service-name-en" data-it>Private Experience · Pool-side</span><span class="service-name-en" data-en>Esperienza Privata · In riva alla piscina</span>
+        <p class="service-desc" data-it>Un percorso di 8 portate ispirato ai sapori di Sicilia, servito in riva alla piscina. Cucina viva all'aperto, vini locali, la Vacca Cinisara come protagonista. Per 8–10 ospiti.</p>
+        <p class="service-desc" data-en>An 8-course journey through the flavours of Sicily, served poolside. Live outdoor cooking, local wines, and the legendary Cinisara beef as centrepiece. For 8–10 guests.</p>
+        <a href="#dinner" class="service-link" data-it>Scopri il menu →</a><a href="#dinner" class="service-link" data-en>See the menu →</a>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">02</span><span class="service-icon">🍷</span>
+        <h3 class="service-name" data-it>Degustazione Vini</h3><h3 class="service-name" data-en>Wine Tasting</h3>
+        <span class="service-name-en">Sicilia in Calice</span>
+        <p class="service-desc" data-it>Un viaggio guidato attraverso le denominazioni siciliane — 6 vini, 6 abbinamenti gastronomici. Dal Kaid Syrah di Camporeale al Passito di Pantelleria.</p>
+        <p class="service-desc" data-en>A guided journey through Sicily's wine regions — 6 wines, 6 food pairings. From Kaid Syrah of Camporeale to the legendary Passito di Pantelleria.</p>
+        <a href="#contact" class="service-link" data-it>Prenota →</a><a href="#contact" class="service-link" data-en>Book →</a>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">03</span><span class="service-icon">🍝</span>
+        <h3 class="service-name">Cooking Class</h3>
+        <span class="service-name-en" data-it>Cucina siciliana dal vivo</span><span class="service-name-en" data-en>Live Sicilian cooking</span>
+        <p class="service-desc" data-it>Impara a preparare pasta fresca, caponata, cannoli e i classici della tradizione palermitana. Nella cucina esterna della villa, con prodotti del mercato locale.</p>
+        <p class="service-desc" data-en>Learn to prepare fresh pasta, caponata, cannoli and the classics of Palermitano tradition. In the villa's outdoor kitchen, with produce from the local market.</p>
+        <a href="#contact" class="service-link" data-it>Prenota →</a><a href="#contact" class="service-link" data-en>Book →</a>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">04</span><span class="service-icon">✦</span>
+        <h3 class="service-name" data-it>Su Misura</h3><h3 class="service-name" data-en>Tailor-Made</h3>
+        <span class="service-name-en" data-it>Esperienze personalizzate</span><span class="service-name-en" data-en>Bespoke experiences</span>
+        <p class="service-desc" data-it>Cene di compleanno, proposte di matrimonio, ritiri aziendali, feste private. Ogni dettaglio — menu, allestimento, musica — progettato intorno a voi.</p>
+        <p class="service-desc" data-en>Birthday dinners, proposals, corporate retreats, private celebrations. Every detail — menu, décor, music — designed around you.</p>
+        <a href="#contact" class="service-link" data-it>Richiedi info →</a><a href="#contact" class="service-link" data-en>Enquire →</a>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">05</span><span class="service-icon">🏠</span>
+        <h3 class="service-name">Home Restaurant</h3>
+        <span class="service-name-en" data-it>Cena esclusiva in villa</span><span class="service-name-en" data-en>Exclusive villa dining</span>
+        <p class="service-desc" data-it>La villa apre le sue porte come ristorante privato. Menu stagionale, vini siciliani, atmosfera intima. Un'esperienza che pochi ristoranti possono offrire.</p>
+        <p class="service-desc" data-en>The villa opens its doors as a private restaurant. Seasonal menu, Sicilian wines, intimate atmosphere. An experience few restaurants can offer.</p>
+        <a href="#contact" class="service-link" data-it>Prenota →</a><a href="#contact" class="service-link" data-en>Book →</a>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">06</span><span class="service-icon">🌊</span>
+        <h3 class="service-name" data-it>Affitto Villa</h3><h3 class="service-name" data-en>Villa Rental</h3>
+        <span class="service-name-en" data-it>Soggiorno privato</span><span class="service-name-en" data-en>Private stay</span>
+        <p class="service-desc" data-it>Soggiorna nella villa con piscina, cucina esterna e giardino mediterraneo. Possibilità di aggiungere esperienze gastronomiche durante il soggiorno.</p>
+        <p class="service-desc" data-en>Stay at the villa with pool, outdoor kitchen and Mediterranean garden. Gastronomic experiences can be added to any stay.</p>
+        <a href="#contact" class="service-link" data-it>Disponibilità →</a><a href="#contact" class="service-link" data-en>Check availability →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dinner">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="ornament"><div class="ornament-line"></div><span class="ornament-text" data-it>La nostra firma</span><span class="ornament-text" data-en>Our signature</span><div class="ornament-line"></div></div>
+      <span class="section-tag" data-it>Esperienza di cena privata</span><span class="section-tag" data-en>Private dinner experience</span>
+      <h2 class="section-title" data-it>Viaggio tra Mare<br>e <em>Terra di Sicilia</em></h2>
+      <h2 class="section-title" data-en>A journey through<br><em>Sea &amp; Land of Sicily</em></h2>
+    </div>
+    <div class="dinner-grid">
+      <div class="reveal">
+        <p class="dinner-menu-title" data-it>Il percorso · 8 portate</p>
+        <p class="dinner-menu-title" data-en>The menu · 8 courses</p>
+        <div class="menu-course"><span class="course-n">I</span><div class="course-info"><div class="course-name-it">Aperitivo della Casa</div><div class="course-name-en">Homemade agrumello &amp; tonic</div></div></div>
+        <div class="menu-course"><span class="course-n">II</span><div class="course-info"><div class="course-name-it">Bruschetta Duo</div><div class="course-name-en">Classica &amp; Mare</div></div></div>
+        <div class="menu-course"><span class="course-n">III</span><div class="course-info"><div class="course-name-it">Tartare di Tonno Rosso &amp; Guacamole Speziata</div><div class="course-name-en">Bluefin tuna · lime · sesame · avocado</div></div></div>
+        <div class="menu-course"><span class="course-n">IV</span><div class="course-info"><div class="course-name-it">Polipo alla Brace su Hummus</div><div class="course-name-en">Char-grilled octopus · chickpea hummus · paprika oil</div></div></div>
+        <div class="menu-course"><span class="course-n">V</span><div class="course-info"><div class="course-name-it">Insalata di Stagione su Misticanza</div><div class="course-name-en">Seasonal salad · goat's cheese · almonds · honey</div></div></div>
+        <div class="menu-course"><span class="course-n">VI</span><div class="course-info"><div class="course-name-it">Linguine all'Aglio Nero e Gambero di Mazara</div><div class="course-name-en">Black garlic linguine · Mazara red prawn</div></div></div>
+        <div class="menu-course"><span class="course-n">VII</span><div class="course-info"><div class="course-name-it">Tagliata di Vacca Cinisara alla Brace</div><div class="course-name-en">Grilled Cinisara beef · red wine sauce · potato purée</div></div></div>
+        <div class="menu-course"><span class="course-n">VIII</span><div class="course-info"><div class="course-name-it">Gelato Artigianale Siciliano &amp; Espresso</div><div class="course-name-en">Pistachio · lemon · almond · brioche col tuppo</div></div></div>
+      </div>
+      <div class="reveal">
+        <div class="info-block">
+          <div class="info-block-title" data-it>La Vacca Cinisara</div><div class="info-block-title" data-en>The Cinisara Breed</div>
+          <p class="info-block-text" data-it>Razza autoctona di <strong>Cinisi e Monreale</strong>, allevata allo stato semibrado su pascoli naturali. <strong>Presidio Slow Food</strong> della Sicilia occidentale.</p>
+          <p class="info-block-text" data-en>An indigenous breed from <strong>Cinisi and Monreale</strong>, raised free-range on natural pasture. <strong>Slow Food Presidium</strong> of western Sicily.</p>
+        </div>
+        <div class="info-block">
+          <div class="info-block-title" data-it>I vini di casa</div><div class="info-block-title" data-en>House wines</div>
+          <p class="info-block-text" data-it><strong>Kaid Sauvignon &amp; Syrah</strong> · Alessandro di Camporeale · <strong>Terre della Baronia Bianco, Rosato &amp; Perricone</strong> · G. Milazzo · tutti biologici.</p>
+          <p class="info-block-text" data-en><strong>Kaid Sauvignon &amp; Syrah</strong> · Alessandro di Camporeale · <strong>Terre della Baronia Bianco, Rosato &amp; Perricone</strong> · G. Milazzo · all organic.</p>
+        </div>
+        <div class="info-block">
+          <div class="info-block-title" data-it>Dettagli pratici</div><div class="info-block-title" data-en>Practical details</div>
+          <p class="info-block-text" data-it>8–10 ospiti · Pool-side · Cucina esterna viva · Solo su prenotazione · Vini opzionali</p>
+          <p class="info-block-text" data-en>8–10 guests · Pool-side · Live outdoor kitchen · By reservation only · Optional wines</p>
+        </div>
+        <a href="#contact" class="btn-primary" data-it>Prenota la tua serata</a>
+        <a href="#contact" class="btn-primary" data-en>Book your evening</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="wines">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag">I nostri vini · Our wines</span>
+      <h2 class="section-title" data-it>Vini del <em>territorio</em></h2>
+      <h2 class="section-title" data-en>Wines of the <em>territory</em></h2>
+      <p class="wines-intro" data-it>Una selezione personale di etichette siciliane biologiche — produttori vicini, vigne antiche, carattere autentico.</p>
+      <p class="wines-intro" data-en>A personal selection of organic Sicilian wines — nearby producers, ancient vines, authentic character.</p>
+    </div>
+    <div class="wines-grid">
+      <div class="wine-card reveal"><span class="wine-type">Bianco · White</span><div class="wine-name">Kaid Sauvignon</div><div class="wine-producer">Alessandro di Camporeale · Cinisi</div><p class="wine-desc">Lime, frutto della passione, lavanda, finale salino.<br><em>Lime, passion fruit, lavender, saline finish.</em></p></div>
+      <div class="wine-card reveal"><span class="wine-type">Rosato · Rosé</span><div class="wine-name">Terre della Baronia Rosato</div><div class="wine-producer">G. Milazzo · biologico</div><p class="wine-desc">Inzolia Rosa, mora, lampone, lychee.<br><em>Ancient Inzolia Rosa, blackberry, raspberry, lychee.</em></p></div>
+      <div class="wine-card reveal"><span class="wine-type">Bianco · White</span><div class="wine-name">Terre della Baronia Bianco</div><div class="wine-producer">G. Milazzo · Catarratto Lucido bio</div><p class="wine-desc">Fiori bianchi, pesca, pompelmo, finale minerale.<br><em>White flowers, peach, grapefruit, mineral finish.</em></p></div>
+      <div class="wine-card reveal"><span class="wine-type">Rosso · Red</span><div class="wine-name">Kaid Syrah</div><div class="wine-producer">Alessandro di Camporeale · Cinisi</div><p class="wine-desc">Mora, amarena, cacao, pepe nero, tannini vellutati.<br><em>Blackberry, dark cherry, cacao, velvet tannins.</em></p></div>
+      <div class="wine-card reveal"><span class="wine-type">Rosso · Red</span><div class="wine-name">Perricone</div><div class="wine-producer">G. Milazzo · vigneti dal 1960</div><p class="wine-desc">Vitigno autoctono siciliano, speziato, elegante.<br><em>Ancient indigenous Sicilian variety. Spiced, elegant.</em></p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag" data-it>Prenota la tua esperienza</span><span class="section-tag" data-en>Book your experience</span>
+      <h2 class="section-title" data-it>Scrivici · <em>Siamo qui</em></h2>
+      <h2 class="section-title" data-en>Get in touch · <em>We're here</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p data-it>Ogni esperienza a Villa Nereide è su prenotazione. Scriveteci con la data, il numero di ospiti e il tipo di esperienza desiderata — vi risponderemo entro 24 ore.</p>
+        <p data-en>Every Villa Nereide experience is by reservation. Write to us with your date, number of guests and desired experience — we'll reply within 24 hours.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-item"><span class="contact-detail-label" data-it>Dove</span><span class="contact-detail-label" data-en>Where</span><span class="contact-detail-value">Cinisi, Palermo, Sicilia</span></div>
+          <div class="contact-detail-item"><span class="contact-detail-label" data-it>Stagione</span><span class="contact-detail-label" data-en>Season</span><span class="contact-detail-value" data-it>Aprile — Ottobre</span><span class="contact-detail-value" data-en>April — October</span></div>
+          <div class="contact-detail-item"><span class="contact-detail-label" data-it>Ospiti</span><span class="contact-detail-label" data-en>Guests</span><span class="contact-detail-value" data-it>Min. 6 · Max. 10 per cena privata</span><span class="contact-detail-value" data-en>Min. 6 · Max. 10 for private dinner</span></div>
+          <div class="contact-detail-item"><span class="contact-detail-label">Instagram</span><span class="contact-detail-value">@villanereide</span></div>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="form-row">
+          <div class="form-group"><label data-it>Nome</label><label data-en>Name</label><input type="text" placeholder="Mario Rossi"></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="mario@email.com"></div>
+        </div>
+        <div class="form-group">
+          <label data-it>Esperienza desiderata</label><label data-en>Desired experience</label>
+          <select>
+            <option>Cena Privata — Pool-side / Private Dinner</option>
+            <option>Degustazione Vini / Wine Tasting</option>
+            <option>Cooking Class</option>
+            <option>Su Misura / Tailor-Made</option>
+            <option>Home Restaurant</option>
+            <option>Affitto Villa / Villa Rental</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label data-it>Data preferita</label><label data-en>Preferred date</label><input type="date"></div>
+          <div class="form-group"><label data-it>Numero ospiti</label><label data-en>Number of guests</label><input type="number" placeholder="8" min="1" max="20"></div>
+        </div>
+        <div class="form-group"><label data-it>Messaggio</label><label data-en>Message</label><textarea placeholder="Allergie, occasione speciale, richieste particolari... / Allergies, special occasion, specific requests..."></textarea></div>
+        <button class="btn-primary" onclick="alert('Grazie! / Thank you! We will reply within 24 hours.')">Invia / Send</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Villa <span>Nereide</span></div>
+  <div class="footer-text"><span data-it>Cinisi · Sicilia · Esperienze gastronomiche private</span><span data-en>Cinisi · Sicily · Private gastronomic experiences</span></div>
+  <div class="footer-links">
+    <a href="#services" data-it>Esperienze</a><a href="#services" data-en>Experiences</a>
+    <a href="#dinner" data-it>Menu</a><a href="#dinner" data-en>Menu</a>
+    <a href="#contact" data-it>Contatti</a><a href="#contact" data-en>Contact</a>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('[data-it]').forEach(el=>el.style.display=lang==='en'?'none':'');
+  document.querySelectorAll('[data-en]').forEach(el=>el.style.display=lang==='en'?'':'none');
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+}
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.service-card').forEach((c,i)=>c.style.transitionDelay=`${i*.07}s`);
+// init: hide [data-en] on load
+document.querySelectorAll('[data-en]').forEach(el=>el.style.display='none');
+</script>
+</body>
+</html>
